@@ -1,0 +1,41 @@
+#!/bin/bash
+# shellduino-admin - a command-line based interace for shellduino
+# This is a alpha version - it's not recommended for production
+# environments but for development purporses.
+# Note: The source-code is not clean. It's just a prototype.
+#
+# See LICENSE in the distributed tarball/git-checkout for
+# informations on the license.
+
+SHELLDUINOPATH=/opt/shellduino
+CP=/bin/cp
+
+function copySkeleton {
+	$CP -r $SHELLDUINOPATH/skeleton $1 || echo "Error. The skeleton could not be copied properly."
+}
+
+
+# Command-line parameters handling
+case "$1" in
+	"startproject")
+		if [ -d $2 ] ; then
+			echo "Error, the project directory specified does already exist."
+		else
+			copySkeleton $2
+		fi
+		;;
+	"checkapps")
+		echo "Sorry, but this feature is not yet implemented."
+		;;
+	*)
+		echo "shellduino-admin - a command-line management"
+		echo "interface for shellduino."
+		echo ""
+		echo "Usage:"
+		echo "$0 command [args]"
+		echo ""
+		echo "Commands:"
+		echo "  startproject [PATH] - Start a new project in PATH."
+                echo "  checkapps - Check if all needed tools are installed."
+		;;
+esac
